@@ -1,0 +1,3830 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Yoe Yar</title>
+
+<style>
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+  font-family:Arial,Helvetica,sans-serif;
+}
+
+body{
+  background:#e7f6ff;
+  color:#17253a;
+}
+
+button,input,textarea,select{
+  font:inherit;
+}
+
+button{
+  cursor:pointer;
+}
+
+.app{
+  width:100%;
+  max-width:500px;
+  min-height:100vh;
+  margin:auto;
+  background:linear-gradient(180deg,#eaf8ff,#d7efff);
+  padding-bottom:82px;
+}
+
+/* =========================
+   SPLASH
+========================= */
+
+#splash{
+  position:fixed;
+  inset:0;
+  background:linear-gradient(145deg,#e0f5ff,#bce5ff);
+  z-index:9999;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  flex-direction:column;
+}
+
+.splashLogo{
+  width:92px;
+  height:92px;
+  border-radius:28px;
+  background:white;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  font-size:47px;
+  box-shadow:0 12px 35px #5aa7d833;
+}
+
+.splashName{
+  margin-top:15px;
+  font-size:40px;
+  font-weight:800;
+  color:#1477ca;
+}
+
+.splashSub{
+  color:#7895aa;
+  margin-top:6px;
+}
+
+.loader{
+  width:32px;
+  height:32px;
+  border:4px solid #c9eafa;
+  border-top-color:#1788e5;
+  border-radius:50%;
+  margin-top:25px;
+  animation:spin 1s linear infinite;
+}
+
+@keyframes spin{
+  to{
+    transform:rotate(360deg);
+  }
+}
+
+/* =========================
+   LOGIN
+========================= */
+
+#loginScreen{
+  display:none;
+  min-height:100vh;
+  padding:25px;
+  align-items:center;
+  justify-content:center;
+  background:linear-gradient(145deg,#e0f5ff,#bce5ff);
+}
+
+.loginBox{
+  width:100%;
+  max-width:420px;
+  background:white;
+  border-radius:28px;
+  padding:35px 25px;
+  text-align:center;
+  box-shadow:0 15px 45px #4d99c52b;
+}
+
+.loginLogo{
+  font-size:55px;
+}
+
+.loginBox h1{
+  color:#1477ca;
+  font-size:37px;
+  margin-top:7px;
+}
+
+.loginBox p{
+  color:#8398a9;
+  margin:10px 0 28px;
+}
+
+.googleBtn{
+  width:100%;
+  background:white;
+  border:1px solid #d9e3e9;
+  border-radius:15px;
+  padding:15px;
+  font-weight:bold;
+  color:#26384b;
+  box-shadow:0 5px 15px #0000000b;
+}
+
+.googleG{
+  color:#4285f4;
+  font-size:21px;
+  margin-right:8px;
+}
+
+/* =========================
+   HEADER
+========================= */
+
+header{
+  height:78px;
+  padding:14px 18px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+
+.brand{
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+
+.brandLogo{
+  width:48px;
+  height:48px;
+  background:white;
+  border-radius:15px;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  font-size:25px;
+  box-shadow:0 5px 15px #5b9ac51c;
+}
+
+.brandName{
+  color:#1477ca;
+  font-size:29px;
+  font-weight:800;
+}
+
+.notificationBtn{
+  width:46px;
+  height:46px;
+  border:0;
+  background:white;
+  border-radius:15px;
+  font-size:22px;
+  position:relative;
+}
+
+.notificationDot{
+  position:absolute;
+  width:9px;
+  height:9px;
+  border-radius:50%;
+  background:#ff4040;
+  top:8px;
+  right:8px;
+  display:none;
+}
+
+/* =========================
+   PAGES
+========================= */
+
+.page{
+  padding:8px 18px 20px;
+}
+
+.pageTitle{
+  font-size:28px;
+  margin:12px 0 18px;
+}
+
+/* =========================
+   HOME CARDS
+========================= */
+
+.voteHomeCard{
+  background:white;
+  padding:10px;
+  border-radius:23px;
+  margin-bottom:15px;
+  box-shadow:0 7px 25px #4d99c514;
+}
+
+.homeImage{
+  width:100%;
+  height:175px;
+  border-radius:17px;
+  object-fit:cover;
+  display:block;
+}
+
+.homeInfo{
+  padding:12px 7px 8px;
+}
+
+.homeTitle{
+  font-size:21px;
+  font-weight:700;
+  line-height:1.35;
+}
+
+.homeDate{
+  color:#99a9b5;
+  margin-top:10px;
+  font-size:15px;
+}
+
+.homeStatus{
+  display:inline-block;
+  margin-top:9px;
+  padding:6px 10px;
+  background:#e3f5ff;
+  color:#1580d6;
+  border-radius:10px;
+  font-size:12px;
+}
+
+/* =========================
+   BOTTOM NAV
+========================= */
+
+.bottomNav{
+  position:fixed;
+  width:min(500px,100%);
+  height:76px;
+  bottom:0;
+  left:50%;
+  transform:translateX(-50%);
+  background:white;
+  border-top:1px solid #dcecf5;
+  display:flex;
+  justify-content:space-around;
+  align-items:center;
+  z-index:100;
+}
+
+.navBtn{
+  border:0;
+  background:none;
+  color:#8ca1b1;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:5px;
+  font-size:12px;
+}
+
+.navIcon{
+  font-size:22px;
+}
+
+.navBtn.active{
+  color:#147fd8;
+  font-weight:bold;
+}
+
+/* =========================
+   MY VOTE
+========================= */
+
+.historyCard{
+  background:white;
+  border-radius:20px;
+  padding:12px;
+  margin-bottom:12px;
+  display:flex;
+  align-items:center;
+  gap:12px;
+}
+
+.historyCard img{
+  width:70px;
+  height:70px;
+  border-radius:14px;
+  object-fit:cover;
+}
+
+.historyInfo{
+  flex:1;
+}
+
+.historyInfo b{
+  display:block;
+  line-height:1.3;
+}
+
+.historyInfo span{
+  color:#8398a8;
+  font-size:13px;
+  display:block;
+  margin-top:5px;
+}
+
+/* =========================
+   ME
+========================= */
+
+.profile{
+  background:white;
+  border-radius:22px;
+  padding:18px;
+  display:flex;
+  align-items:center;
+  gap:15px;
+  margin-bottom:18px;
+}
+
+.avatar{
+  width:60px;
+  height:60px;
+  border-radius:50%;
+  background:#def2ff;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:28px;
+}
+
+.profile h3{
+  font-size:18px;
+}
+
+.profile p{
+  color:#879aa9;
+  font-size:13px;
+  margin-top:4px;
+}
+
+.menu{
+  background:white;
+  border-radius:22px;
+  overflow:hidden;
+}
+
+.menuBtn{
+  width:100%;
+  padding:17px;
+  border:0;
+  border-bottom:1px solid #edf2f5;
+  background:white;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+
+.menuLeft{
+  display:flex;
+  align-items:center;
+  gap:13px;
+}
+
+.menuIcon{
+  width:40px;
+  height:40px;
+  border-radius:12px;
+  background:#e5f5ff;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+}
+
+/* =========================
+   NOTIFICATION
+========================= */
+
+.notificationModal{
+  position:fixed;
+  inset:0;
+  background:#00000055;
+  z-index:400;
+  display:none;
+  align-items:flex-start;
+  justify-content:center;
+}
+
+.notificationPanel{
+  width:min(500px,100%);
+  background:#eef9ff;
+  min-height:100vh;
+  padding:18px;
+}
+
+.notificationHead{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:18px;
+}
+
+.notificationHead h2{
+  font-size:25px;
+}
+
+.closeBtn{
+  width:42px;
+  height:42px;
+  border:0;
+  border-radius:13px;
+  background:white;
+  font-size:21px;
+}
+
+.notice{
+  background:white;
+  border-radius:18px;
+  padding:17px;
+  margin-bottom:12px;
+  box-shadow:0 5px 18px #4d99c510;
+}
+
+.noticeTitle{
+  font-weight:bold;
+  color:#147bd0;
+  margin-bottom:7px;
+}
+
+.noticeText{
+  line-height:1.5;
+  color:#52697c;
+  font-size:14px;
+}
+
+.noticeTime{
+  margin-top:8px;
+  font-size:11px;
+  color:#9aabb7;
+}
+
+/* =========================
+   DETAIL
+========================= */
+
+.detailModal{
+  position:fixed;
+  inset:0;
+  background:#07163c;
+  z-index:300;
+  display:none;
+  overflow-y:auto;
+}
+
+.detailTop{
+  position:sticky;
+  top:0;
+  height:68px;
+  z-index:10;
+  background:#07163c;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:10px 18px;
+}
+
+.detailTop button{
+  width:44px;
+  height:44px;
+  border:0;
+  border-radius:14px;
+  background:#ffffff12;
+  color:white;
+  font-size:24px;
+}
+
+.detailHeader{
+  padding:12px 18px 8px;
+  text-align:center;
+  color:white;
+}
+
+.detailHeader h1{
+  font-size:25px;
+  line-height:1.3;
+}
+
+.detailDate{
+  color:#a7b9d0;
+  margin-top:8px;
+  font-size:14px;
+}
+
+.contestants{
+  padding:15px 14px 35px;
+}
+
+/* =========================
+   CONTESTANT CARD
+========================= */
+
+.contestantCard{
+  width:100%;
+  min-height:205px;
+  background:#050505;
+  border:1px solid #4d4d4d;
+  border-radius:19px;
+  padding:14px;
+  margin-bottom:16px;
+  display:grid;
+  grid-template-columns:230px 1fr;
+  gap:15px;
+  position:relative;
+  overflow:hidden;
+}
+
+.contestantPhoto{
+  width:230px;
+  height:205px;
+  object-fit:cover;
+  border-radius:14px;
+  background:#222;
+}
+
+.contestantRight{
+  min-width:0;
+  padding-top:8px;
+  display:flex;
+  flex-direction:column;
+  position:relative;
+}
+
+.country{
+  color:white;
+  font-size:24px;
+  font-weight:700;
+  text-transform:uppercase;
+  padding-right:55px;
+}
+
+.contestantName{
+  color:#a9a9a9;
+  font-size:16px;
+  margin-top:9px;
+  text-transform:uppercase;
+  line-height:1.3;
+  padding-right:55px;
+}
+
+.rankBox{
+  position:absolute;
+  right:0;
+  top:0;
+  width:65px;
+  height:65px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color:#ddd;
+  font-size:31px;
+  font-weight:400;
+}
+
+.rankBox .laurelLeft{
+  position:absolute;
+  left:0;
+  color:#bbb;
+  font-size:33px;
+  transform:rotate(-20deg);
+}
+
+.rankBox .laurelRight{
+  position:absolute;
+  right:0;
+  color:#bbb;
+  font-size:33px;
+  transform:rotate(20deg);
+}
+
+.points{
+  color:white;
+  font-size:22px;
+  font-weight:600;
+  margin-top:auto;
+}
+
+.pointsIcon{
+  color:#ff3232;
+  font-size:17px;
+  margin-left:3px;
+}
+
+.voteWhite{
+  width:100%;
+  height:51px;
+  margin-top:10px;
+  border:0;
+  border-radius:28px;
+  background:white;
+  color:#111;
+  font-size:20px;
+}
+
+.voteWhite:active{
+  transform:scale(.97);
+}
+
+/* =========================
+   WINNER
+========================= */
+
+.winnerCard{
+  border:2px solid #d89b32;
+  box-shadow:0 0 25px #d89b3240;
+}
+
+.winnerLabel{
+  position:absolute;
+  top:10px;
+  left:10px;
+  background:#d99c35;
+  color:white;
+  padding:6px 12px;
+  border-radius:10px;
+  font-weight:bold;
+  font-size:12px;
+  z-index:2;
+}
+
+.winnerCard .rankBox{
+  color:#e1a43a;
+}
+
+/* TOP 1 CARD */
+
+.contestantCard.first{
+  display:block;
+  min-height:430px;
+  padding:12px;
+}
+
+.contestantCard.first .contestantPhoto{
+  width:100%;
+  height:320px;
+}
+
+.contestantCard.first .contestantRight{
+  min-height:100px;
+  padding:11px 5px 0;
+}
+
+.contestantCard.first .country{
+  font-size:26px;
+}
+
+.contestantCard.first .contestantName{
+  font-size:17px;
+}
+
+.contestantCard.first .rankBox{
+  top:5px;
+  right:5px;
+}
+
+.contestantCard.first .points{
+  margin-top:12px;
+}
+
+.contestantCard.first .voteWhite{
+  position:absolute;
+  width:45%;
+  right:0;
+  bottom:0;
+}
+
+/* =========================
+   MODALS
+========================= */
+
+.modal{
+  position:fixed;
+  inset:0;
+  background:#10283b66;
+  display:none;
+  align-items:flex-end;
+  justify-content:center;
+  z-index:500;
+}
+
+.modalBox{
+  width:min(500px,100%);
+  max-height:92vh;
+  overflow-y:auto;
+  background:#effaff;
+  border-radius:28px 28px 0 0;
+  padding:22px;
+}
+
+.modalHead{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:20px;
+}
+
+.formGroup{
+  margin-bottom:15px;
+}
+
+.formGroup label{
+  display:block;
+  color:#5d7487;
+  font-size:13px;
+  font-weight:bold;
+  margin-bottom:7px;
+}
+
+.formGroup input,
+.formGroup textarea,
+.formGroup select{
+  width:100%;
+  border:1px solid #d4e5ef;
+  border-radius:13px;
+  padding:13px;
+  background:white;
+  outline:none;
+}
+
+.formGroup textarea{
+  min-height:80px;
+  resize:vertical;
+}
+
+.primary{
+  width:100%;
+  border:0;
+  border-radius:14px;
+  padding:14px;
+  background:#218be5;
+  color:white;
+  font-weight:bold;
+  margin-top:5px;
+}
+
+.secondary{
+  width:100%;
+  border:0;
+  border-radius:14px;
+  padding:13px;
+  background:#dff3ff;
+  color:#1479ce;
+  font-weight:bold;
+  margin-top:9px;
+}
+
+.danger{
+  width:100%;
+  border:0;
+  border-radius:14px;
+  padding:13px;
+  background:#ffe5e5;
+  color:#d43a3a;
+  font-weight:bold;
+  margin-top:9px;
+}
+
+/* =========================
+   ADMIN
+========================= */
+
+.pinInput{
+  text-align:center;
+  font-size:26px;
+  letter-spacing:8px;
+}
+
+.adminItem{
+  background:white;
+  border-radius:17px;
+  padding:13px;
+  margin-bottom:10px;
+}
+
+.adminItemTop{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+}
+
+.adminItem small{
+  color:#899dac;
+}
+
+.adminActions{
+  display:flex;
+  gap:7px;
+  margin-top:10px;
+}
+
+.adminActions button{
+  flex:1;
+  border:0;
+  border-radius:10px;
+  padding:9px;
+}
+
+.editBtn{
+  background:#dff3ff;
+  color:#147bcf;
+}
+
+.deleteBtn{
+  background:#ffe5e5;
+  color:#d43a3a;
+}
+
+/* =========================
+   ADMIN CONTESTANTS
+========================= */
+
+.adminContestant{
+  background:white;
+  border-radius:17px;
+  padding:10px;
+  margin-bottom:10px;
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+
+.adminContestant img{
+  width:55px;
+  height:55px;
+  border-radius:12px;
+  object-fit:cover;
+}
+
+.adminContestantInfo{
+  flex:1;
+}
+
+.adminContestantInfo b{
+  display:block;
+}
+
+.adminContestantInfo span{
+  color:#8799a8;
+  font-size:12px;
+}
+
+/* =========================
+   DURATION
+========================= */
+
+.durationGrid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:9px;
+}
+
+.durationBtn{
+  border:1px solid #d5e5ed;
+  background:white;
+  border-radius:13px;
+  padding:13px;
+}
+
+.durationBtn.selected{
+  border:2px solid #218be5;
+  background:#eaf7ff;
+  color:#147bd1;
+}
+
+/* =========================
+   TOAST
+========================= */
+
+.toast{
+  position:fixed;
+  left:50%;
+  bottom:92px;
+  transform:translateX(-50%) translateY(20px);
+  background:#17324a;
+  color:white;
+  padding:12px 18px;
+  border-radius:13px;
+  opacity:0;
+  pointer-events:none;
+  transition:.3s;
+  z-index:99999;
+  font-size:14px;
+  white-space:nowrap;
+}
+
+.toast.show{
+  opacity:1;
+  transform:translateX(-50%) translateY(0);
+}
+
+/* =========================
+   MOBILE
+========================= */
+
+@media(max-width:430px){
+
+  .contestantCard{
+    grid-template-columns:125px 1fr;
+    min-height:155px;
+    padding:9px;
+    gap:12px;
+  }
+
+  .contestantPhoto{
+    width:125px;
+    height:145px;
+  }
+
+  .country{
+    font-size:19px;
+  }
+
+  .contestantName{
+    font-size:13px;
+  }
+
+  .points{
+    font-size:18px;
+  }
+
+  .voteWhite{
+    height:44px;
+    font-size:18px;
+  }
+
+  .rankBox{
+    width:58px;
+    font-size:27px;
+  }
+
+  .contestantCard.first{
+    min-height:390px;
+  }
+
+  .contestantCard.first .contestantPhoto{
+    height:290px;
+  }
+
+}
+</style>
+</head>
+
+<body>
+
+<!-- ================= SPLASH ================= -->
+
+<div id="splash">
+
+  <div class="splashLogo">👑</div>
+
+  <div class="splashName">
+    Yoe Yar
+  </div>
+
+  <div class="splashSub">
+    Your Voting World
+  </div>
+
+  <div class="loader"></div>
+
+</div>
+
+
+<!-- ================= LOGIN ================= -->
+
+<div id="loginScreen">
+
+  <div class="loginBox">
+
+    <div class="loginLogo">👑</div>
+
+    <h1>Yoe Yar</h1>
+
+    <p>
+      Join Yoe Yar and make your vote count.
+    </p>
+
+    <button
+      class="googleBtn"
+      onclick="googleLogin()">
+
+      <span class="googleG">G</span>
+      Continue with Google
+
+    </button>
+
+    <p style="font-size:11px;margin-top:20px;">
+      Continue with your Google Account to create your Yoe Yar account.
+    </p>
+
+  </div>
+
+</div>
+
+
+<!-- ================= MAIN APP ================= -->
+
+<div id="mainApp" class="app">
+
+<header>
+
+  <div class="brand">
+
+    <div class="brandLogo">
+      👑
+    </div>
+
+    <div class="brandName">
+      Yoe Yar
+    </div>
+
+  </div>
+
+  <button
+    class="notificationBtn"
+    onclick="openNotifications()">
+
+    🔔
+
+    <span
+      id="notificationDot"
+      class="notificationDot">
+    </span>
+
+  </button>
+
+</header>
+
+
+<!-- ================= HOME ================= -->
+
+<section
+  id="homePage"
+  class="page">
+
+  <h2 class="pageTitle">
+    Voting
+  </h2>
+
+  <div id="votingList"></div>
+
+</section>
+
+
+<!-- ================= MY VOTE ================= -->
+
+<section
+  id="myVotePage"
+  class="page"
+  style="display:none">
+
+  <h2 class="pageTitle">
+    My Vote
+  </h2>
+
+  <div id="myVoteList"></div>
+
+</section>
+
+
+<!-- ================= ME ================= -->
+
+<section
+  id="mePage"
+  class="page"
+  style="display:none">
+
+  <h2 class="pageTitle">
+    Me
+  </h2>
+
+  <div class="profile">
+
+    <div class="avatar">
+      👤
+    </div>
+
+    <div>
+
+      <h3 id="userName">
+        Yoe Yar User
+      </h3>
+
+      <p id="userEmail">
+        user@gmail.com
+      </p>
+
+    </div>
+
+  </div>
+
+
+  <div class="menu">
+
+    <button
+      class="menuBtn"
+      onclick="openPin()">
+
+      <div class="menuLeft">
+
+        <div class="menuIcon">
+          🔐
+        </div>
+
+        <span>
+          Admin Permits
+        </span>
+
+      </div>
+
+      <span>›</span>
+
+    </button>
+
+
+    <button
+      class="menuBtn"
+      onclick="logout()">
+
+      <div class="menuLeft">
+
+        <div class="menuIcon">
+          ↪️
+        </div>
+
+        <span>
+          Log Out
+        </span>
+
+      </div>
+
+      <span>›</span>
+
+    </button>
+
+  </div>
+
+</section>
+
+
+<!-- ================= NAV ================= -->
+
+<div class="bottomNav">
+
+  <button
+    class="navBtn active"
+    onclick="showPage('home')">
+
+    <span class="navIcon">
+      ⌂
+    </span>
+
+    <span>
+      Home
+    </span>
+
+  </button>
+
+
+  <button
+    class="navBtn"
+    onclick="showPage('myvote')">
+
+    <span class="navIcon">
+      ☷
+    </span>
+
+    <span>
+      My Vote
+    </span>
+
+  </button>
+
+
+  <button
+    class="navBtn"
+    onclick="showPage('me')">
+
+    <span class="navIcon">
+      ●
+    </span>
+
+    <span>
+      Me
+    </span>
+
+  </button>
+
+</div>
+
+</div>
+
+
+<!-- ================= NOTIFICATIONS ================= -->
+
+<div
+  id="notificationModal"
+  class="notificationModal">
+
+  <div class="notificationPanel">
+
+    <div class="notificationHead">
+
+      <h2>
+        Notifications
+      </h2>
+
+      <button
+        class="closeBtn"
+        onclick="closeNotifications()">
+
+        ✕
+
+      </button>
+
+    </div>
+
+    <div id="notificationList"></div>
+
+  </div>
+
+</div>
+
+
+<!-- ================= VOTING DETAIL ================= -->
+
+<div
+  id="detailModal"
+  class="detailModal">
+
+  <div class="detailTop">
+
+    <button onclick="closeDetail()">
+      ←
+    </button>
+
+    <button onclick="closeDetail()">
+      ✕
+    </button>
+
+  </div>
+
+  <div class="detailHeader">
+
+    <h1 id="detailTitle">
+      Voting
+    </h1>
+
+    <div
+      id="detailDate"
+      class="detailDate">
+    </div>
+
+  </div>
+
+  <div
+    id="contestants"
+    class="contestants">
+  </div>
+
+</div>
+
+
+<!-- ================= PIN ================= -->
+
+<div
+  id="pinModal"
+  class="modal">
+
+  <div class="modalBox">
+
+    <div class="modalHead">
+
+      <h2>
+        Admin Permits
+      </h2>
+
+      <button
+        class="closeBtn"
+        onclick="closeModal('pinModal')">
+
+        ✕
+
+      </button>
+
+    </div>
+
+    <div class="formGroup">
+
+      <label>
+        Admin PIN
+      </label>
+
+      <input
+        id="pin"
+        class="pinInput"
+        type="password"
+        maxlength="4"
+        placeholder="••••">
+
+    </div>
+
+    <button
+      class="primary"
+      onclick="checkPin()">
+
+      Continue
+
+    </button>
+
+  </div>
+
+</div>
+
+
+<!-- ================= ADMIN ================= -->
+
+<div
+  id="adminModal"
+  class="modal">
+
+  <div class="modalBox">
+
+    <div class="modalHead">
+
+      <h2>
+        Admin Permits
+      </h2>
+
+      <button
+        class="closeBtn"
+        onclick="closeModal('adminModal')">
+
+        ✕
+
+      </button>
+
+    </div>
+
+
+    <button
+      class="primary"
+      onclick="openCreateVoting()">
+
+      ＋ Create New Voting
+
+    </button>
+
+
+    <div style="margin-top:22px">
+
+      <h3 style="margin-bottom:12px">
+        Voting Lists
+      </h3>
+
+      <div id="adminVotingList"></div>
+
+    </div>
+
+  </div>
+
+</div>
+
+
+<!-- ================= CREATE VOTING ================= -->
+
+<div
+  id="createModal"
+  class="modal">
+
+  <div class="modalBox">
+
+    <div class="modalHead">
+
+      <h2 id="createTitle">
+        Create Voting
+      </h2>
+
+      <button
+        class="closeBtn"
+        onclick="closeModal('createModal')">
+
+        ✕
+
+      </button>
+
+    </div>
+
+
+    <input
+      type="hidden"
+      id="editId">
+
+
+    <div class="formGroup">
+
+      <label>
+        Voting Title
+      </label>
+
+      <input
+        id="vTitle"
+        placeholder="Example: Miss Serbia 2026">
+
+    </div>
+
+
+    <div class="formGroup">
+
+      <label>
+        Description
+      </label>
+
+      <textarea
+        id="vDescription"
+        placeholder="Voting description">
+      </textarea>
+
+    </div>
+
+
+    <div class="formGroup">
+
+      <label>
+        Voting Image URL
+      </label>
+
+      <input
+        id="vImage"
+        placeholder="https://...">
+
+    </div>
+
+
+    <div class="formGroup">
+
+      <label>
+        Start Date & Time
+      </label>
+
+      <input
+        id="vStart"
+        type="datetime-local">
+
+    </div>
+
+
+    <div class="formGroup">
+
+      <label>
+        Voting Duration
+      </label>
+
+      <div class="durationGrid">
+
+        <button
+          class="durationBtn"
+          onclick="selectDuration(this,1)">
+          1 Hour
+        </button>
+
+        <button
+          class="durationBtn"
+          onclick="selectDuration(this,3)">
+          3 Hours
+        </button>
+
+        <button
+          class="durationBtn"
+          onclick="selectDuration(this,6)">
+          6 Hours
+        </button>
+
+        <button
+          class="durationBtn"
+          onclick="selectDuration(this,12)">
+          12 Hours
+        </button>
+
+        <button
+          class="durationBtn"
+          onclick="selectDuration(this,24)">
+          1 Day
+        </button>
+
+        <button
+          class="durationBtn"
+          onclick="selectDuration(this,72)">
+          3 Days
+        </button>
+
+        <button
+          class="durationBtn"
+          onclick="selectDuration(this,168)">
+          7 Days
+        </button>
+
+        <button
+          class="durationBtn"
+          onclick="selectDuration(this,336)">
+          14 Days
+        </button>
+
+      </div>
+
+    </div>
+
+
+    <button
+      class="primary"
+      onclick="saveVoting()">
+
+      Save Voting
+
+    </button>
+
+  </div>
+
+</div>
+
+
+<!-- ================= ADMIN VOTING EDIT ================= -->
+
+<div
+  id="manageModal"
+  class="modal">
+
+  <div class="modalBox">
+
+    <div class="modalHead">
+
+      <h2 id="manageTitle">
+        Manage Voting
+      </h2>
+
+      <button
+        class="closeBtn"
+        onclick="closeModal('manageModal')">
+
+        ✕
+
+      </button>
+
+    </div>
+
+
+    <button
+      class="primary"
+      onclick="openAddContestant()">
+
+      ＋ Add Contestant
+
+    </button>
+
+
+    <div
+      id="adminContestants"
+      style="margin-top:18px">
+    </div>
+
+  </div>
+
+</div>
+
+
+<!-- ================= CONTESTANT FORM ================= -->
+
+<div
+  id="contestantModal"
+  class="modal">
+
+  <div class="modalBox">
+
+    <div class="modalHead">
+
+      <h2 id="contestantFormTitle">
+        Add Contestant
+      </h2>
+
+      <button
+        class="closeBtn"
+        onclick="closeModal('contestantModal')">
+
+        ✕
+
+      </button>
+
+    </div>
+
+
+    <input
+      type="hidden"
+      id="contestantId">
+
+
+    <div class="formGroup">
+
+      <label>
+        Country
+      </label>
+
+      <input
+        id="cCountry"
+        placeholder="PANAMÁ">
+
+    </div>
+
+
+    <div class="formGroup">
+
+      <label>
+        Contestant Name
+      </label>
+
+      <input
+        id="cName"
+        placeholder="Contestant Name">
+
+    </div>
+
+
+    <div class="formGroup">
+
+      <label>
+        Photo URL
+      </label>
+
+      <input
+        id="cImage"
+        placeholder="https://...">
+
+    </div>
+
+
+    <div class="formGroup">
+
+      <label>
+        Starting Points
+      </label>
+
+      <input
+        id="cPoints"
+        type="number"
+        value="0"
+        min="0">
+
+    </div>
+
+
+    <button
+      class="primary"
+      onclick="saveContestant()">
+
+      Save Contestant
+
+    </button>
+
+  </div>
+
+</div>
+
+
+<div
+  id="toast"
+  class="toast">
+</div>
+
+
+<script>
+
+/* =====================================================
+   YOe YAR APP
+   1 VOTE = 10 POINTS
+   UNLIMITED VOTING
+===================================================== */
+
+
+/* =========================
+   STORAGE
+========================= */
+
+let currentUser =
+  JSON.parse(localStorage.getItem("yoeyar_user")) || null;
+
+
+let votes =
+  JSON.parse(localStorage.getItem("yoeyar_votes")) || [];
+
+
+let notifications =
+  JSON.parse(localStorage.getItem("yoeyar_notifications")) || [];
+
+
+let myVotes =
+  JSON.parse(localStorage.getItem("yoeyar_my_votes")) || [];
+
+
+let selectedDuration = 24;
+
+let selectedVotingId = null;
+
+
+/* =========================
+   DEMO DATA
+========================= */
+
+if(votes.length === 0){
+
+  votes = [
+
+    {
+      id:1,
+
+      title:
+      "Miss Teen Continental Beauty Pageant 2026",
+
+      description:
+      "Official Voting",
+
+      image:
+      "https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=1000&q=80",
+
+      start:
+      "2026-09-13T12:00",
+
+      duration:168,
+
+      winnerAnnounced:false,
+
+      candidates:[
+
+        {
+          id:101,
+          country:"PANAMÁ",
+          name:"STEPHANIE CHANIS",
+          points:112510,
+          image:
+          "https://images.unsplash.com/photo-1531123897727-8f129e1688ce?auto=format&fit=crop&w=500&q=80"
+        },
+
+        {
+          id:102,
+          country:"SPAIN",
+          name:"VALERIA LYSETSKA",
+          points:94634,
+          image:
+          "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=500&q=80"
+        },
+
+        {
+          id:103,
+          country:"PUERTO RICO",
+          name:"BÁRBARA VÉLEZ",
+          points:73317,
+          image:
+          "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=500&q=80"
+        },
+
+        {
+          id:104,
+          country:"ARGENTINA",
+          name:"ZOE VADALA",
+          points:69886,
+          image:
+          "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=500&q=80"
+        },
+
+        {
+          id:105,
+          country:"GUATEMALA",
+          name:"FABIOLA MUÑOZ",
+          points:62737,
+          image:
+          "https://images.unsplash.com/photo-1512316609839-ce289d3eba0a?auto=format&fit=crop&w=500&q=80"
+        }
+
+      ]
+
+    },
+
+    {
+      id:2,
+
+      title:
+      "Miss Serbia 2026",
+
+      description:
+      "Official Voting",
+
+      image:
+      "https://images.unsplash.com/photo-1490481651871-ab68de25d43d?auto=format&fit=crop&w=1000&q=80",
+
+      start:
+      "2026-09-14T12:00",
+
+      duration:168,
+
+      winnerAnnounced:false,
+
+      candidates:[]
+
+    },
+
+    {
+      id:3,
+
+      title:
+      "Miss & Mister Continental World 2026",
+
+      description:
+      "Official Voting",
+
+      image:
+      "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=1000&q=80",
+
+      start:
+      "2026-09-19T12:00",
+
+      duration:168,
+
+      winnerAnnounced:false,
+
+      candidates:[]
+
+    },
+
+    {
+      id:4,
+
+      title:
+      "Miss Global International",
+
+      description:
+      "Official Voting",
+
+      image:
+      "https://images.unsplash.com/photo-1509631179647-0177331693ae?auto=format&fit=crop&w=1000&q=80",
+
+      start:
+      "2026-09-20T12:00",
+
+      duration:168,
+
+      winnerAnnounced:false,
+
+      candidates:[]
+
+    }
+
+  ];
+
+  saveData();
+
+}
+
+
+/* =========================
+   START APP
+========================= */
+
+window.onload=function(){
+
+  setTimeout(function(){
+
+    document.getElementById("splash").style.display="none";
+
+    if(currentUser){
+
+      showMain();
+
+    }else{
+
+      document.getElementById("loginScreen").style.display="flex";
+
+    }
+
+  },1200);
+
+
+  setInterval(function(){
+
+    checkFinishedVotings();
+
+  },1000);
+
+};
+
+
+/* =========================
+   GOOGLE LOGIN
+========================= */
+
+function googleLogin(){
+
+  /*
+    TEST MODE
+
+    Real Google OAuth must be connected
+    before publishing the real app.
+  */
+
+  currentUser={
+
+    name:"Yoe Yar User",
+
+    email:"yoeyar@gmail.com"
+
+  };
+
+
+  localStorage.setItem(
+    "yoeyar_user",
+    JSON.stringify(currentUser)
+  );
+
+
+  showToast("Google Account verified ✓");
+
+
+  setTimeout(function(){
+
+    showMain();
+
+  },500);
+
+}
+
+
+/* =========================
+   SHOW MAIN
+========================= */
+
+function showMain(){
+
+  document.getElementById("loginScreen").style.display="none";
+
+  document.getElementById("mainApp").style.display="block";
+
+
+  document.getElementById("userName").textContent=
+    currentUser.name;
+
+
+  document.getElementById("userEmail").textContent=
+    currentUser.email;
+
+
+  renderVoting();
+
+  renderMyVotes();
+
+  updateNotificationDot();
+
+}
+
+
+/* =========================
+   NAVIGATION
+========================= */
+
+function showPage(page){
+
+  document.getElementById("homePage").style.display="none";
+
+  document.getElementById("myVotePage").style.display="none";
+
+  document.getElementById("mePage").style.display="none";
+
+
+  document.querySelectorAll(".navBtn")
+  .forEach(function(btn){
+
+    btn.classList.remove("active");
+
+  });
+
+
+  if(page==="home"){
+
+    document.getElementById("homePage").style.display="block";
+
+    document.querySelectorAll(".navBtn")[0]
+      .classList.add("active");
+
+    renderVoting();
+
+  }
+
+
+  if(page==="myvote"){
+
+    document.getElementById("myVotePage").style.display="block";
+
+    document.querySelectorAll(".navBtn")[1]
+      .classList.add("active");
+
+    renderMyVotes();
+
+  }
+
+
+  if(page==="me"){
+
+    document.getElementById("mePage").style.display="block";
+
+    document.querySelectorAll(".navBtn")[2]
+      .classList.add("active");
+
+  }
+
+}
+
+
+/* =========================
+   HOME VOTING
+========================= */
+
+function renderVoting(){
+
+  const box=
+    document.getElementById("votingList");
+
+
+  if(votes.length===0){
+
+    box.innerHTML=`
+
+      <div class="empty">
+
+        <div class="emptyIcon">
+          🗳️
+        </div>
+
+        <h3>
+          No Voting Yet
+        </h3>
+
+        <p>
+          New voting will appear here.
+        </p>
+
+      </div>
+
+    `;
+
+    return;
+
+  }
+
+
+  box.innerHTML="";
+
+
+  votes.forEach(function(v){
+
+    box.innerHTML+=`
+
+      <div
+        class="voteHomeCard"
+        onclick="openVoting(${v.id})">
+
+        <img
+          class="homeImage"
+          src="${safeImage(v.image)}">
+
+        <div class="homeInfo">
+
+          <div class="homeTitle">
+            ${escapeHtml(v.title)}
+          </div>
+
+          <div class="homeDate">
+            📅 ${formatDate(v.start)}
+          </div>
+
+          <span class="homeStatus">
+            ${getStatus(v)}
+          </span>
+
+        </div>
+
+      </div>
+
+    `;
+
+  });
+
+}
+
+
+/* =========================
+   OPEN VOTING
+========================= */
+
+function openVoting(id){
+
+  const v=
+    votes.find(function(x){
+
+      return x.id===id;
+
+    });
+
+
+  if(!v)return;
+
+
+  document.getElementById("detailTitle").textContent=
+    v.title;
+
+
+  document.getElementById("detailDate").textContent=
+
+    "📅 "+
+    formatDate(v.start)+
+    " • "+
+    durationText(v.duration)+
+    " • "+
+    getStatus(v);
+
+
+  renderContestants(v);
+
+
+  document.getElementById("detailModal").style.display=
+    "block";
+
+}
+
+
+/* =========================
+   RENDER CONTESTANTS
+========================= */
+
+function renderContestants(v){
+
+  const box=
+    document.getElementById("contestants");
+
+
+  let list=
+    [...(v.candidates || [])];
+
+
+  list.sort(function(a,b){
+
+    return Number(b.points || 0) -
+           Number(a.points || 0);
+
+  });
+
+
+  box.innerHTML="";
+
+
+  if(list.length===0){
+
+    box.innerHTML=`
+
+      <div style="
+        color:#aabbd0;
+        text-align:center;
+        padding:60px 15px;
+      ">
+
+        <div style="font-size:55px">
+          👑
+        </div>
+
+        <p>
+          Contestants will be added soon.
+        </p>
+
+      </div>
+
+    `;
+
+    return;
+
+  }
+
+
+  const ended=
+    isVotingEnded(v);
+
+
+  list.forEach(function(c,index){
+
+    const isWinner=
+      ended &&
+      index===0 &&
+      Number(c.points || 0)>0;
+
+
+    const rank=
+      isWinner
+      ? "WINNER"
+      : (index+1);
+
+
+    const first=
+      index===0;
+
+
+    box.innerHTML+=`
+
+      <div
+        class="contestantCard
+        ${first ? "first" : ""}
+        ${isWinner ? "winnerCard" : ""}">
+
+        ${
+          isWinner
+          ?
+          `<div class="winnerLabel">
+             WINNER
+           </div>`
+          :
+          ""
+        }
+
+        <img
+          class="contestantPhoto"
+          src="${safeImage(c.image)}">
+
+        <div class="contestantRight">
+
+          <div class="country">
+            ${escapeHtml(c.country)}
+          </div>
+
+          <div class="contestantName">
+            ${escapeHtml(c.name)}
+          </div>
+
+          <div class="rankBox">
+
+            <span class="laurelLeft">
+              ❮
+            </span>
+
+            <span style="z-index:2;font-size:${
+              isWinner ? "18px" : "31px"
+            }">
+              ${rank}
+            </span>
+
+            <span class="laurelRight">
+              ❯
+            </span>
+
+          </div>
+
+          <div class="points">
+
+            ${formatPoints(c.points)}
+
+            <span class="pointsIcon">
+              P
+            </span>
+
+          </div>
+
+          ${
+            ended
+            ?
+            `<button
+              class="voteWhite"
+              disabled
+              style="
+                opacity:.5;
+                cursor:not-allowed;
+              ">
+              Voting Ended
+            </button>`
+            :
+            `<button
+              class="voteWhite"
+              onclick="
+                event.stopPropagation();
+                castVote(${v.id},${c.id});
+              ">
+              Vote
+            </button>`
+          }
+
+        </div>
+
+      </div>
+
+    `;
+
+  });
+
+}
+
+
+/* =========================
+   VOTE
+   UNLIMITED
+   1 VOTE = 10 POINTS
+========================= */
+
+function castVote(votingId,candidateId){
+
+  const v=
+    votes.find(function(x){
+
+      return x.id===votingId;
+
+    });
+
+
+  if(!v)return;
+
+
+  if(isVotingEnded(v)){
+
+    showToast("Voting has ended");
+
+    return;
+
+  }
+
+
+  const candidate=
+    v.candidates.find(function(c){
+
+      return c.id===candidateId;
+
+    });
+
+
+  if(!candidate)return;
+
+
+  /*
+    IMPORTANT:
+
+    There is NO one-vote limit.
+
+    Every button press:
+    +10 POINTS
+  */
+
+  candidate.points=
+    Number(candidate.points || 0)+10;
+
+
+  myVotes.push({
+
+    votingId:votingId,
+
+    candidateId:candidateId,
+
+    candidateName:candidate.name,
+
+    points:10,
+
+    time:new Date().toISOString()
+
+  });
+
+
+  saveData();
+
+  localStorage.setItem(
+    "yoeyar_my_votes",
+    JSON.stringify(myVotes)
+  );
+
+
+  showToast("+10 Points ✓");
+
+
+  renderContestants(v);
+
+  renderMyVotes();
+
+}
+
+
+/* =========================
+   MY VOTE
+========================= */
+
+function renderMyVotes(){
+
+  const box=
+    document.getElementById("myVoteList");
+
+
+  if(myVotes.length===0){
+
+    box.innerHTML=`
+
+      <div class="empty">
+
+        <div class="emptyIcon">
+          🗳️
+        </div>
+
+        <h3>
+          No Votes Yet
+        </h3>
+
+        <p>
+          Your voting history will appear here.
+        </p>
+
+      </div>
+
+    `;
+
+    return;
+
+  }
+
+
+  let grouped={};
+
+
+  myVotes.forEach(function(item){
+
+    if(!grouped[item.votingId]){
+
+      grouped[item.votingId]=0;
+
+    }
+
+    grouped[item.votingId]+=10;
+
+  });
+
+
+  box.innerHTML="";
+
+
+  Object.keys(grouped)
+  .reverse()
+  .forEach(function(id){
+
+    const v=
+      votes.find(function(x){
+
+        return x.id===Number(id);
+
+      });
+
+
+    if(!v)return;
+
+
+    box.innerHTML+=`
+
+      <div class="historyCard">
+
+        <img src="${safeImage(v.image)}">
+
+        <div class="historyInfo">
+
+          <b>
+            ${escapeHtml(v.title)}
+          </b>
+
+          <span>
+            My Points: ${grouped[id]} P
+          </span>
+
+          <span>
+            ${getStatus(v)}
+          </span>
+
+        </div>
+
+      </div>
+
+    `;
+
+  });
+
+}
+
+
+/* =========================
+   CHECK FINISHED VOTINGS
+========================= */
+
+function checkFinishedVotings(){
+
+  let changed=false;
+
+
+  votes.forEach(function(v){
+
+    if(
+      isVotingEnded(v) &&
+      !v.winnerAnnounced
+    ){
+
+      announceWinner(v);
+
+      changed=true;
+
+    }
+
+  });
+
+
+  if(changed){
+
+    saveData();
+
+    renderVoting();
+
+    updateNotificationDot();
+
+  }
+
+}
+
+
+/* =========================
+   ANNOUNCE WINNER
+========================= */
+
+function announceWinner(v){
+
+  if(
+    !v.candidates ||
+    v.candidates.length===0
+  ){
+
+    v.winnerAnnounced=true;
+
+    return;
+
+  }
+
+
+  let sorted=
+    [...v.candidates]
+    .sort(function(a,b){
+
+      return Number(b.points || 0) -
+             Number(a.points || 0);
+
+    });
+
+
+  const winner=sorted[0];
+
+
+  if(!winner){
+
+    v.winnerAnnounced=true;
+
+    return;
+
+  }
+
+
+  v.winnerAnnounced=true;
+
+  v.winnerId=winner.id;
+
+
+  notifications.push({
+
+    id:Date.now()+Math.random(),
+
+    title:"🏆 Voting Winner",
+
+    text:
+      v.title+
+      " has ended. "+
+      winner.name+
+      " from "+
+      winner.country+
+      " is the Winner with "+
+      formatPoints(winner.points)+
+      " Points.",
+
+    time:new Date().toISOString(),
+
+    votingId:v.id
+
+  });
+
+
+  localStorage.setItem(
+    "yoeyar_notifications",
+    JSON.stringify(notifications)
+  );
+
+
+  showToast(
+    "🏆 Winner announced: "+
+    winner.name
+  );
+
+}
+
+
+/* =========================
+   NOTIFICATIONS
+========================= */
+
+function openNotifications(){
+
+  renderNotifications();
+
+  document.getElementById(
+    "notificationModal"
+  ).style.display="flex";
+
+
+  notifications.forEach(function(n){
+
+    n.read=true;
+
+  });
+
+
+  localStorage.setItem(
+    "yoeyar_notifications",
+    JSON.stringify(notifications)
+  );
+
+
+  updateNotificationDot();
+
+}
+
+
+function closeNotifications(){
+
+  document.getElementById(
+    "notificationModal"
+  ).style.display="none";
+
+}
+
+
+function renderNotifications(){
+
+  const box=
+    document.getElementById(
+      "notificationList"
+    );
+
+
+  if(notifications.length===0){
+
+    box.innerHTML=`
+
+      <div class="empty">
+
+        <div class="emptyIcon">
+          🔔
+        </div>
+
+        <h3>
+          No Notifications
+        </h3>
+
+        <p>
+          Winner announcements will appear here.
+        </p>
+
+      </div>
+
+    `;
+
+    return;
+
+  }
+
+
+  box.innerHTML="";
+
+
+  [...notifications]
+  .reverse()
+  .forEach(function(n){
+
+    box.innerHTML+=`
+
+      <div class="notice">
+
+        <div class="noticeTitle">
+          ${escapeHtml(n.title)}
+        </div>
+
+        <div class="noticeText">
+          ${escapeHtml(n.text)}
+        </div>
+
+        <div class="noticeTime">
+          ${formatDate(n.time)}
+        </div>
+
+      </div>
+
+    `;
+
+  });
+
+}
+
+
+function updateNotificationDot(){
+
+  const dot=
+    document.getElementById(
+      "notificationDot"
+    );
+
+
+  const unread=
+    notifications.some(function(n){
+
+      return !n.read;
+
+    });
+
+
+  dot.style.display=
+    unread ? "block" : "none";
+
+}
+
+
+/* =========================
+   ADMIN PIN
+========================= */
+
+function openPin(){
+
+  document.getElementById("pin").value="";
+
+  document.getElementById(
+    "pinModal"
+  ).style.display="flex";
+
+}
+
+
+function checkPin(){
+
+  const pin=
+    document.getElementById("pin").value;
+
+
+  if(pin==="2013"){
+
+    closeModal("pinModal");
+
+    renderAdmin();
+
+    document.getElementById(
+      "adminModal"
+    ).style.display="flex";
+
+    showToast(
+      "Admin access granted ✓"
+    );
+
+  }else{
+
+    showToast("Wrong PIN");
+
+  }
+
+}
+
+
+/* =========================
+   ADMIN VOTINGS
+========================= */
+
+function renderAdmin(){
+
+  const box=
+    document.getElementById(
+      "adminVotingList"
+    );
+
+
+  box.innerHTML="";
+
+
+  votes.forEach(function(v){
+
+    box.innerHTML+=`
+
+      <div class="adminItem">
+
+        <div class="adminItemTop">
+
+          <div>
+
+            <b>
+              ${escapeHtml(v.title)}
+            </b>
+
+            <br>
+
+            <small>
+              ${getStatus(v)}
+            </small>
+
+          </div>
+
+          <span>
+            🗳️
+          </span>
+
+        </div>
+
+
+        <div class="adminActions">
+
+          <button
+            class="editBtn"
+            onclick="editVoting(${v.id})">
+
+            Edit
+
+          </button>
+
+
+          <button
+            class="editBtn"
+            onclick="manageVoting(${v.id})">
+
+            Contestants
+
+          </button>
+
+
+          <button
+            class="deleteBtn"
+            onclick="deleteVoting(${v.id})">
+
+            Delete
+
+          </button>
+
+        </div>
+
+      </div>
+
+    `;
+
+  });
+
+}
+
+
+/* =========================
+   CREATE VOTING
+========================= */
+
+function openCreateVoting(){
+
+  document.getElementById("editId").value="";
+
+  document.getElementById(
+    "createTitle"
+  ).textContent="Create Voting";
+
+
+  document.getElementById("vTitle").value="";
+
+  document.getElementById("vDescription").value="";
+
+  document.getElementById("vImage").value="";
+
+  document.getElementById("vStart").value="";
+
+
+  selectedDuration=24;
+
+
+  document.querySelectorAll(".durationBtn")
+  .forEach(function(btn){
+
+    btn.classList.remove("selected");
+
+  });
+
+
+  document.getElementById(
+    "createModal"
+  ).style.display="flex";
+
+}
+
+
+/* =========================
+   EDIT VOTING
+========================= */
+
+function editVoting(id){
+
+  const v=
+    votes.find(function(x){
+
+      return x.id===id;
+
+    });
+
+
+  if(!v)return;
+
+
+  document.getElementById("editId").value=id;
+
+  document.getElementById(
+    "createTitle"
+  ).textContent="Edit Voting";
+
+
+  document.getElementById("vTitle").value=
+    v.title;
+
+
+  document.getElementById("vDescription").value=
+    v.description || "";
+
+
+  document.getElementById("vImage").value=
+    v.image || "";
+
+
+  document.getElementById("vStart").value=
+    v.start || "";
+
+
+  selectedDuration=
+    v.duration || 24;
+
+
+  document.getElementById(
+    "createModal"
+  ).style.display="flex";
+
+}
+
+
+/* =========================
+   DURATION
+========================= */
+
+function selectDuration(btn,hours){
+
+  selectedDuration=hours;
+
+
+  document.querySelectorAll(".durationBtn")
+  .forEach(function(x){
+
+    x.classList.remove("selected");
+
+  });
+
+
+  btn.classList.add("selected");
+
+}
+
+
+/* =========================
+   SAVE VOTING
+========================= */
+
+function saveVoting(){
+
+  const title=
+    document.getElementById("vTitle")
+    .value.trim();
+
+
+  const description=
+    document.getElementById("vDescription")
+    .value.trim();
+
+
+  const image=
+    document.getElementById("vImage")
+    .value.trim();
+
+
+  const start=
+    document.getElementById("vStart")
+    .value;
+
+
+  const editId=
+    document.getElementById("editId")
+    .value;
+
+
+  if(!title){
+
+    showToast("Enter voting title");
+
+    return;
+
+  }
+
+
+  if(!start){
+
+    showToast("Select start date & time");
+
+    return;
+
+  }
+
+
+  if(editId){
+
+    const v=
+      votes.find(function(x){
+
+        return x.id===Number(editId);
+
+      });
+
+
+    if(v){
+
+      v.title=title;
+
+      v.description=description;
+
+      v.image=image || placeholder();
+
+      v.start=start;
+
+      v.duration=selectedDuration;
+
+    }
+
+
+    showToast("Voting updated ✓");
+
+  }else{
+
+    votes.push({
+
+      id:Date.now(),
+
+      title:title,
+
+      description:description,
+
+      image:image || placeholder(),
+
+      start:start,
+
+      duration:selectedDuration,
+
+      winnerAnnounced:false,
+
+      candidates:[]
+
+    });
+
+
+    showToast("Voting created ✓");
+
+  }
+
+
+  saveData();
+
+  closeModal("createModal");
+
+  renderVoting();
+
+  renderAdmin();
+
+}
+
+
+/* =========================
+   MANAGE CONTESTANTS
+========================= */
+
+function manageVoting(id){
+
+  selectedVotingId=id;
+
+
+  const v=
+    votes.find(function(x){
+
+      return x.id===id;
+
+    });
+
+
+  if(!v)return;
+
+
+  document.getElementById(
+    "manageTitle"
+  ).textContent=
+    v.title;
+
+
+  renderAdminContestants();
+
+
+  document.getElementById(
+    "manageModal"
+  ).style.display="flex";
+
+}
+
+
+function renderAdminContestants(){
+
+  const v=
+    votes.find(function(x){
+
+      return x.id===selectedVotingId;
+
+    });
+
+
+  if(!v)return;
+
+
+  const box=
+    document.getElementById(
+      "adminContestants"
+    );
+
+
+  box.innerHTML="";
+
+
+  if(!v.candidates.length){
+
+    box.innerHTML=`
+
+      <div style="
+        text-align:center;
+        padding:30px;
+        color:#8498a8;
+      ">
+
+        No contestants yet.
+
+      </div>
+
+    `;
+
+    return;
+
+  }
+
+
+  v.candidates.forEach(function(c){
+
+    box.innerHTML+=`
+
+      <div class="adminContestant">
+
+        <img
+          src="${safeImage(c.image)}">
+
+        <div class="adminContestantInfo">
+
+          <b>
+            ${escapeHtml(c.name)}
+          </b>
+
+          <span>
+            ${escapeHtml(c.country)}
+          </span>
+
+          <span>
+            ${formatPoints(c.points)} Points
+          </span>
+
+        </div>
+
+
+        <button
+          class="editBtn"
+          style="
+            border:0;
+            padding:8px;
+            border-radius:9px;
+          "
+          onclick="editContestant(${c.id})">
+
+          Edit
+
+        </button>
+
+      </div>
+
+    `;
+
+  });
+
+}
+
+
+/* =========================
+   ADD CONTESTANT
+========================= */
+
+function openAddContestant(){
+
+  document.getElementById(
+    "contestantFormTitle"
+  ).textContent=
+    "Add Contestant";
+
+
+  document.getElementById(
+    "contestantId"
+  ).value="";
+
+
+  document.getElementById(
+    "cCountry"
+  ).value="";
+
+
+  document.getElementById(
+    "cName"
+  ).value="";
+
+
+  document.getElementById(
+    "cImage"
+  ).value="";
+
+
+  document.getElementById(
+    "cPoints"
+  ).value="0";
+
+
+  document.getElementById(
+    "contestantModal"
+  ).style.display="flex";
+
+}
+
+
+/* =========================
+   EDIT CONTESTANT
+========================= */
+
+function editContestant(id){
+
+  const v=
+    votes.find(function(x){
+
+      return x.id===selectedVotingId;
+
+    });
+
+
+  if(!v)return;
+
+
+  const c=
+    v.candidates.find(function(x){
+
+      return x.id===id;
+
+    });
+
+
+  if(!c)return;
+
+
+  document.getElementById(
+    "contestantFormTitle"
+  ).textContent=
+    "Edit Contestant";
+
+
+  document.getElementById(
+    "contestantId"
+  ).value=id;
+
+
+  document.getElementById(
+    "cCountry"
+  ).value=c.country;
+
+
+  document.getElementById(
+    "cName"
+  ).value=c.name;
+
+
+  document.getElementById(
+    "cImage"
+  ).value=c.image;
+
+
+  document.getElementById(
+    "cPoints"
+  ).value=c.points;
+
+
+  document.getElementById(
+    "contestantModal"
+  ).style.display="flex";
+
+}
+
+
+/* =========================
+   SAVE CONTESTANT
+========================= */
+
+function saveContestant(){
+
+  const v=
+    votes.find(function(x){
+
+      return x.id===selectedVotingId;
+
+    });
+
+
+  if(!v)return;
+
+
+  const id=
+    document.getElementById(
+      "contestantId"
+    ).value;
+
+
+  const country=
+    document.getElementById(
+      "cCountry"
+    ).value.trim();
+
+
+  const name=
+    document.getElementById(
+      "cName"
+    ).value.trim();
+
+
+  const image=
+    document.getElementById(
+      "cImage"
+    ).value.trim();
+
+
+  const points=
+    Number(
+      document.getElementById(
+        "cPoints"
+      ).value
+    ) || 0;
+
+
+  if(!country || !name){
+
+    showToast(
+      "Country and Name required"
+    );
+
+    return;
+
+  }
+
+
+  if(id){
+
+    const c=
+      v.candidates.find(function(x){
+
+        return x.id===Number(id);
+
+      });
+
+
+    if(c){
+
+      c.country=country;
+
+      c.name=name;
+
+      c.image=image || placeholder();
+
+      c.points=points;
+
+    }
+
+
+    showToast(
+      "Contestant updated ✓"
+    );
+
+  }else{
+
+    v.candidates.push({
+
+      id:Date.now(),
+
+      country:country,
+
+      name:name,
+
+      image:image || placeholder(),
+
+      points:points
+
+    });
+
+
+    showToast(
+      "Contestant added ✓"
+    );
+
+  }
+
+
+  saveData();
+
+  closeModal("contestantModal");
+
+  renderAdminContestants();
+
+  renderVoting();
+
+}
+
+
+/* =========================
+   DELETE VOTING
+========================= */
+
+function deleteVoting(id){
+
+  if(
+    !confirm(
+      "Delete this voting?"
+    )
+  ){
+
+    return;
+
+  }
+
+
+  votes=
+    votes.filter(function(x){
+
+      return x.id!==id;
+
+    });
+
+
+  saveData();
+
+  renderVoting();
+
+  renderAdmin();
+
+  showToast(
+    "Voting deleted"
+  );
+
+}
+
+
+/* =========================
+   STATUS
+========================= */
+
+function isVotingStarted(v){
+
+  return new Date() >=
+         new Date(v.start);
+
+}
+
+
+function isVotingEnded(v){
+
+  const start=
+    new Date(v.start);
+
+
+  const end=
+    new Date(
+      start.getTime()+
+      Number(v.duration)*60*60*1000
+    );
+
+
+  return new Date()>=end;
+
+}
+
+
+function getStatus(v){
+
+  if(!isVotingStarted(v)){
+
+    return "Upcoming";
+
+  }
+
+
+  if(!isVotingEnded(v)){
+
+    return "Ongoing";
+
+  }
+
+
+  return "Ended";
+
+}
+
+
+/* =========================
+   DATE
+========================= */
+
+function formatDate(date){
+
+  if(!date)return "Date not set";
+
+
+  const d=
+    new Date(date);
+
+
+  return d.toLocaleString(
+    "en-US",
+    {
+      year:"numeric",
+      month:"long",
+      day:"numeric",
+      hour:"numeric",
+      minute:"2-digit"
+    }
+  );
+
+}
+
+
+/* =========================
+   DURATION
+========================= */
+
+function durationText(hours){
+
+  hours=Number(hours);
+
+
+  if(hours===1)
+    return "1 Hour";
+
+
+  if(hours<24)
+    return hours+" Hours";
+
+
+  if(hours===24)
+    return "1 Day";
+
+
+  return (hours/24)+" Days";
+
+}
+
+
+/* =========================
+   POINTS
+========================= */
+
+function formatPoints(points){
+
+  return Number(points || 0)
+    .toLocaleString();
+
+}
+
+
+/* =========================
+   IMAGE
+========================= */
+
+function placeholder(){
+
+  return "data:image/svg+xml;charset=UTF-8,"+
+    encodeURIComponent(`
+      <svg xmlns="http://www.w3.org/2000/svg"
+           width="800"
+           height="500">
+
+        <rect
+          width="100%"
+          height="100%"
+          fill="#07163c"/>
+
+        <text
+          x="50%"
+          y="50%"
+          text-anchor="middle"
+          dominant-baseline="middle"
+          fill="white"
+          font-size="55">
+
+          Yoe Yar
+
+        </text>
+
+      </svg>
+    `);
+
+}
+
+
+function safeImage(url){
+
+  return url || placeholder();
+
+}
+
+
+/* =========================
+   ESCAPE
+========================= */
+
+function escapeHtml(text){
+
+  return String(text)
+    .replace(/&/g,"&amp;")
+    .replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;")
+    .replace(/"/g,"&quot;")
+    .replace(/'/g,"&#039;");
+
+}
+
+
+/* =========================
+   STORAGE
+========================= */
+
+function saveData(){
+
+  localStorage.setItem(
+    "yoeyar_votes",
+    JSON.stringify(votes)
+  );
+
+  localStorage.setItem(
+    "yoeyar_notifications",
+    JSON.stringify(notifications)
+  );
+
+}
+
+
+/* =========================
+   CLOSE MODALS
+========================= */
+
+function closeModal(id){
+
+  document.getElementById(id)
+    .style.display="none";
+
+}
+
+
+function closeDetail(){
+
+  document.getElementById(
+    "detailModal"
+  ).style.display="none";
+
+}
+
+
+/* =========================
+   LOGOUT
+========================= */
+
+function logout(){
+
+  localStorage.removeItem(
+    "yoeyar_user"
+  );
+
+  location.reload();
+
+}
+
+
+/* =========================
+   TOAST
+========================= */
+
+function showToast(text){
+
+  const toast=
+    document.getElementById(
+      "toast"
+    );
+
+
+  toast.textContent=text;
+
+  toast.classList.add("show");
+
+
+  setTimeout(function(){
+
+    toast.classList.remove("show");
+
+  },2000);
+
+}
+
+
+/* =========================
+   OUTSIDE MODAL CLOSE
+========================= */
+
+document.querySelectorAll(".modal")
+.forEach(function(modal){
+
+  modal.addEventListener(
+    "click",
+    function(e){
+
+      if(e.target===modal){
+
+        modal.style.display="none";
+
+      }
+
+    }
+  );
+
+});
+
+
+document.getElementById(
+  "notificationModal"
+)
+.addEventListener(
+  "click",
+  function(e){
+
+    if(
+      e.target===
+      document.getElementById(
+        "notificationModal"
+      )
+    ){
+
+      closeNotifications();
+
+    }
+
+  }
+);
+
+</script>
+
+</body>
+</html>
