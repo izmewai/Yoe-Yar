@@ -1,0 +1,9 @@
+{
+  "name": "Yoe Yar",
+  "short_name": "Yoe Yar",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#e7f6ff",
+  "theme_color": "#1477ca",
+  "orientation": "portrait"
+}
